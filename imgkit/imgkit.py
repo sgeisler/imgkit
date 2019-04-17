@@ -236,10 +236,10 @@ class IMGKit(object):
                           'Go to the link below for more information\n'
                           'http://wkhtmltopdf.org' % stderr)
 
-        if 'Error' in stderr:
+        if 'Error' in stderr and 'Done'.encode() not in stdout:
             raise IOError('wkhtmltoimage reported an error:\n' + stderr)
 
-        if exit_code != 0:
+        if exit_code != 0 and 'Done'.encode() not in stdout:
             xvfb_error = ''
             if 'QXcbConnection' in stderr:
                 xvfb_error = 'You need to install xvfb(sudo apt-get install xvfb, yum install xorg-x11-server-Xvfb, etc), then add option: {"xvfb": ""}.'
